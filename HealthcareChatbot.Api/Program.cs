@@ -1,3 +1,5 @@
+using HealthcareChatbot.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +11,9 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
+
+builder.Services.AddControllers();
+builder.Services.AddScoped<IHealthcareClassifier, HealthcareClassifier>();
 
 var app = builder.Build();
 
@@ -43,14 +48,7 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-app.MapPost("/chat", async (ChatRequest req) =>
-{
-    var answer = $"This is a mock response to: {req.Question}";
-    var resp = new ChatResponse(answer);
-    return Results.Json(resp);
-})
-.WithName("PostChat")
-.WithOpenApi();
+app.MapControllers();
 
 app.Run();
 
@@ -58,6 +56,3 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
-
-record ChatRequest(string Question);
-record ChatResponse(string Answer);
