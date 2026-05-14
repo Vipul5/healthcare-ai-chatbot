@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\HealthcareChatbot.Api.props" />
-</Project>
