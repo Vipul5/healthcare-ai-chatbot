@@ -8,12 +8,10 @@ namespace HealthcareChatbot.Api.Controllers;
 [Route("[controller]")]
 public class ChatController : ControllerBase
 {
-    private readonly IHealthcareClassifier _classifier;
     private readonly IOllamaClient _ollama;
 
-    public ChatController(IHealthcareClassifier classifier, IOllamaClient ollama)
+    public ChatController(IOllamaClient ollama)
     {
-        _classifier = classifier;
         _ollama = ollama;
     }
 
@@ -21,20 +19,15 @@ public class ChatController : ControllerBase
     public async Task<IActionResult> Post([FromBody] ChatRequest req)
     {
         var question = req?.Question ?? string.Empty;
-        var isHealthcare = _classifier.IsHealthcareRelated(question);
-        if (!isHealthcare)
-        {
-            var respNon = new ChatResponse("This is outside healthcare scope.", false);
-            return Ok(respNon);
-        }
 
-        // For healthcare questions, call Ollama via the injected client.
+        // Forward every question to Ollama; Ollama will classify and respond with JSON.
+
         try
         {
-            var gen = await _ollama.GenerateAsync(question);
-            var answer = gen ?? $"(Healthcare) No response for: {question}";
-            var resp = new ChatResponse(answer, true);
-            return Ok(resp);
+            var (isHealthcare, answer) = await _ollama.GenerateAsync(question);
+            var finalAnswer = answer ?? $"No response for: {question}";
+            // Return plain text containing only the assistant's answer.
+            return Content(finalAnswer, "text/plain");
         }
         catch (Exception ex)
         {

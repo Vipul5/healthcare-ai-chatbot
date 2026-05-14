@@ -5,5 +5,5 @@ namespace HealthcareChatbot.Api.Services;
 
 public interface IOllamaClient
 {
-    Task<string?> GenerateAsync(string prompt, CancellationToken cancellationToken = default);
+    Task<(bool IsHealthcare, string Answer)> GenerateAsync(string prompt, CancellationToken cancellationToken = default);
 }

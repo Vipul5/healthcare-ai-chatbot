@@ -30,11 +30,34 @@ const send = async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ Question: text })
     })
-    const data = await res.json()
-    const answer = data.Answer ?? data.answer ?? 'No response'
+
+    // Accept both JSON and plain-text responses from the API.
+    const contentType = res.headers.get('content-type') || ''
+    let answer = 'No response'
+
+    if (contentType.includes('application/json')) {
+      const data = await res.json()
+      answer = data.Answer ?? data.answer ?? String(data)
+    } else {
+      // Try to read as text. If it's JSON wrapped as text, attempt to parse it.
+      const txt = await res.text()
+      const trimmed = txt.trim()
+      if (trimmed.startsWith('{')) {
+        try {
+          const parsed = JSON.parse(trimmed)
+          answer = parsed.Answer ?? parsed.answer ?? String(parsed)
+        } catch {
+          answer = trimmed
+        }
+      } else {
+        answer = trimmed
+      }
+    }
+
     messages.value.push({ from: 'bot', text: answer })
-  } catch (e) {
-    messages.value.push({ from: 'bot', text: 'Error contacting API' })
+  } catch (err: any) {
+    const msg = err?.message ?? String(err)
+    messages.value.push({ from: 'bot', text: 'Error contacting API, ' + msg })
   }
 }
 </script>

@@ -1,3 +1,32 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore runtime and intermediate files
+*.dll
+*.exe
+*.app
+
+# VS Code settings and user files
+.vscode/
+
+# Rider/JetBrains
+.idea/
+
+# NuGet
+# packages/ # Uncomment if you store packages in the repo
+*.nupkg
+
+# Resharper
+*.DotSettings.user
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+ehthumbs.db
+.DS_Store
 # Logs
 logs
 *.log
