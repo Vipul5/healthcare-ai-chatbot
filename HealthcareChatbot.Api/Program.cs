@@ -13,7 +13,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IHealthcareClassifier, HealthcareClassifier>();
+builder.Services.AddHttpClient<IOllamaClient, OllamaClient>();
+// Note: classifier registration removed; Ollama will determine scope.
 
 var app = builder.Build();
 

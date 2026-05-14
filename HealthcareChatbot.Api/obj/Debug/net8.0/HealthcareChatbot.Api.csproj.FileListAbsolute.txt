@@ -32,3 +32,10 @@ C:\healthcare-ai-chatbot\HealthcareChatbot.Api\obj\Debug\net8.0\refint\Healthcar
 C:\healthcare-ai-chatbot\HealthcareChatbot.Api\obj\Debug\net8.0\HealthcareChatbot.Api.pdb
 C:\healthcare-ai-chatbot\HealthcareChatbot.Api\obj\Debug\net8.0\HealthcareChatbot.Api.genruntimeconfig.cache
 C:\healthcare-ai-chatbot\HealthcareChatbot.Api\obj\Debug\net8.0\ref\HealthcareChatbot.Api.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\Google.Apis.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\Google.Apis.Auth.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\System.CodeDom.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\System.Management.dll
+C:\healthcare-ai-chatbot\HealthcareChatbot.Api\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
